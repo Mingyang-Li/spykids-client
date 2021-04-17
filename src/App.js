@@ -8,7 +8,7 @@ const App = () => {
     "New Zealand": [-40.900558, 174.885971],
     "UK:": [55.378052, -3.435973]
   }
-  const latLong = countries["New Zealand"];
+  const latLong = countries["USA"];
   const [teslaData, setTeslaData] = useState([]);
 
   useEffect(async () => {
@@ -18,17 +18,13 @@ const App = () => {
     setTeslaData(data);
   }, []);
 
-  const usaStations = teslaData.filter(station => station.address.country === "United States");
-  const nzStations = teslaData.filter(station => station.address.country === "New Zealand");
-  const uKStations = teslaData.filter(station => station.address.country === "United Kingdom");
-
   return (
     <MapContainer center={latLong} zoom={5} scrollWheelZoom={false}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {nzStations.map(st => {
+      {teslaData.map(st => {
         // console.log(st.gps)
         return <Marker
         key={st.id}
